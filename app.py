@@ -1,4 +1,5 @@
-import random, json
+import random
+import json
 from flask import Flask, request, render_template
 
 # Will Poirier
@@ -6,14 +7,15 @@ from flask import Flask, request, render_template
 # Assassin-Bot
 
 # This program is designed to help run a game me and my friends play called Assassins
-# The game is set up with every player in a "cirlce"
-# Each player only knows their target (a player on one side of them in the "cirlce")
+# The game is set up with every player in a "circle"
+# Each player only knows their target (a player on one side of them in the "circle")
 # If you can "kill" your target (poke them with a pencil or something), you replace them in the circle
 # And get points based on some factors, including the number of witnesses
 # This program is designed to automate the circle aspect of this game
 # Thus removing the need for a person to not play the game and manually manage the circle
 
 app = Flask(__name__)
+
 
 @app.route("/")
 def main():
@@ -104,7 +106,7 @@ def start_game():
     for i in circle:
         circle[i] = i
     loops = 0
-    while loops<100:
+    while loops < 100:
         indexA = circle.randomindex()
         indexB = circle.randomindex()
         if indexA != indexB:
