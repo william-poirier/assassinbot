@@ -20,12 +20,12 @@ app = Flask(__name__)
 @app.route("/")
 def main():
     # Display the homepage
-    return render_template("/")
+    return render_template("homepage.html")
 
 
 # That template will have a button to see someone's target
-# That will take you to "/target", where you input the username
-@app.route("/target_find")
+# That will take you to "/target_find", where you input the username
+@app.route("/target_find_")
 def find_target(user):
     circle = load_circle()
     target = circle[user]
@@ -97,7 +97,7 @@ def add_player(username):
     main()
 
 
-# The Start Game button makes the Add Player button disapear somehow
+# The Start Game button makes the Add Player button disappear somehow
 # As well as randomly swapping giving players targets
 # This'll be a doosy
 @app.route("/start_game")
@@ -124,3 +124,7 @@ def dict_swap(indexA, indexB, dictionary):
     circle[indexA] = temp_storeB
     circle[indexB] = temp_storeA
     return circle
+
+
+if __name__ == "__main__":
+    app.run()
