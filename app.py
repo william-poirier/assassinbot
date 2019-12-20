@@ -22,6 +22,7 @@ def main():
     # Display the homepage
     return render_template("homepage.html")
 
+
 @app.route("/target_find")
 def finding_target():
     return render_template("target_find.html")
@@ -61,6 +62,11 @@ def save_points(point_totals):
 # Here's the big one - the "I killed someone" button
 # "/kill" redirects here after the info is gathered
 @app.route("/kill")
+def player_kill():
+    return render_template("kill.html")
+
+
+@app.route("/kill_")
 def kill_player():
     killer = request.values.get("Killer")
     killed = request.values.get("Player Killed")
@@ -68,17 +74,15 @@ def kill_player():
     circle = load_circle()
     points = 50
     points -= witnesses
-    if circle[killed] == killer:
-        points += 25
-    if circle["kills"] == 0:
-        points += 25
+    # if circle[killed] == killer:
+    points += 25
     point_totals = load_points()
     point_totals[killer] += points
     save_points(point_totals)
     circle[killer] = circle[killed]
-    circle.delete(killed)
+    del circle[killed]
     save_circle(circle)
-    return render_template("homepage.html")
+    return render_template("kill_.html")
 
 
 # The Create New Game button will exist, which will be an overwrite for the whole system.
@@ -103,7 +107,7 @@ def add_player():
     username = request.values.get("Username")
     circle = load_circle()
     point_totals = load_points()
-    circle[username] = "none"
+    circle[username] = username
     point_totals[username] = 0
     save_circle(circle)
     save_points(point_totals)
@@ -112,19 +116,24 @@ def add_player():
 
 # The Start Game button makes the Add Player button disappear somehow
 # As well as randomly swapping giving players targets
+# This is gonna be some wildin' code
 @app.route("/start_game")
 def start_game():
     circle = load_circle()
-    for i in circle:
-        circle[i] = i
     loops = 0
     while loops < 100:
-        indexA = circle.randomindex()
-        indexB = circle.randomindex()
+        indexA = random.choice(list(circle))
+        indexB = random.choice(list(circle))
         if indexA != indexB:
             circle = dict_swap(indexA, indexB, circle)
         loops += 1
     save_circle(circle)
+    for i in circle:
+        if i == circle[i]:
+            swapper = random.choice(list(circle))
+            while swapper != circle[i]:
+                circle = dict_swap(i, swapper, circle)
+                swapper = random.choice(list(circle))
     return render_template("homepage.html")
 
 
