@@ -22,14 +22,18 @@ def main():
     # Display the homepage
     return render_template("homepage.html")
 
+@app.route("/target_find")
+def finding_target():
+    return render_template("target_find.html")
+
 
 # That template will have a button to see someone's target
-# That will take you to "/target_find", where you input the username
-@app.route("/target_find_")
-def find_target(user):
+@app.route("/target_found")
+def find_target():
+    user = request.values.get("Username")
     circle = load_circle()
     target = circle[user]
-    return render_template("/target_found")  # Need to get target sent to HTML
+    return render_template("target_found.html", target=target)  # Need to get target sent to HTML
 
 
 def load_circle():
@@ -56,8 +60,11 @@ def save_points(point_totals):
 
 # Here's the big one - the "I killed someone" button
 # "/kill" redirects here after the info is gathered
-@app.route("/kill_")
-def kill_player(killer, killed, witnesses):
+@app.route("/kill")
+def kill_player():
+    killer = request.values.get("Killer")
+    killed = request.values.get("Player Killed")
+    witnesses = int(request.values.get("Witnesses"))
     circle = load_circle()
     points = 50
     points -= witnesses
@@ -71,35 +78,40 @@ def kill_player(killer, killed, witnesses):
     circle[killer] = circle[killed]
     circle.delete(killed)
     save_circle(circle)
-    main()
+    return render_template("homepage.html")
 
 
 # The Create New Game button will exist, which will be an overwrite for the whole system.
 # That's where the point_totals and circle starting conditions come from
-@app.route("/create")
+@app.route("/create_game")
 def create_new_game():
     circle = {}
     point_totals = {}
     save_circle(circle)
     save_points(point_totals)
-    main()
+    return render_template("homepage.html")
+
+
+@app.route("/add_player")
+def adding_player():
+    return render_template("add_player.html")
 
 
 # an Add Player Button will lead here
 @app.route("/add_player_")
-def add_player(username):
+def add_player():
+    username = request.values.get("Username")
     circle = load_circle()
     point_totals = load_points()
     circle[username] = "none"
     point_totals[username] = 0
     save_circle(circle)
     save_points(point_totals)
-    main()
+    return render_template("adding_player.html")
 
 
 # The Start Game button makes the Add Player button disappear somehow
 # As well as randomly swapping giving players targets
-# This'll be a doosy
 @app.route("/start_game")
 def start_game():
     circle = load_circle()
@@ -113,7 +125,7 @@ def start_game():
             circle = dict_swap(indexA, indexB, circle)
         loops += 1
     save_circle(circle)
-    return render_template("/game_started")
+    return render_template("homepage.html")
 
 
 # Here is the method to swap people in the dictionary
