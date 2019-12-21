@@ -4,30 +4,55 @@
     <meta charset="UTF-8">
     <title>Assassins</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: LightGrey
+        }
+        .jumbotron {
+            background-color: LightCoral
+        }
+    </style>
+
 </head>
 <body>
-    <center><h1>Assassins</h1></center>
+    <center><div class="container"><div class="jumbotron"><h1>Assassins</h1></div></div></center>
 
+    <br>
     <form action="/create_game">
-        <button>Create New Game</button>
+        <p>Warning: This will overwrite the game currently running.</p>
+        <button type="Submit" class="btn btn-danger">Create New Game</button>
     </form>
 
+    <br>
     <form action="/add_player">
-        <button>Add Player</button>
+        <p>Add a Player to the game</p>
+        <button type="Submit" class="btn btn-danger">Add Player</button>
     </form>
 
+    <br>
     <form action="/target_find">
-        <button>Find your Target</button>
+        <p>Find the target of a specific player</p>
+        <button type="Submit" class="btn btn-danger">Find your Target</button>
     </form>
 
+    <br>
     <form action="/kill">
-        <button>Kill Someone</button>
+        <p>If and when you have killed someone, go here</p>
+        <button type="Submit" class="btn btn-danger">Kill Someone</button>
     </form>
 
+    <br>
     <form action="/start_game">
-        <button>Start Game</button>
+        <p>Randomize the targets</p>
+        <button type="Submit" class="btn btn-danger">Start Game</button>
     </form>
+    <br>
+    <p>Rules:
+    - You can only kill your target OR the player targeting you
+    - Honor system: Only chose that you've killed a player if you actually have
+    - Similarly, don't cheat and view the target of another player</p>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>

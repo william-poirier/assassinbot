@@ -4,13 +4,24 @@
     <meta charset="UTF-8">
     <title>Assassins</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: LightGrey
+        }
+        .jumbotron {
+            background-color: LightCoral
+        }
+    </style>
+
 </head>
 <body>
 
     <form action="/target_found">
+        <p>Who are you finding the target of?</p>
         <input type="text" name="Username">
-        <button type="submit">Submit</button>
+        <button type="Submit" class="btn btn-danger">Submit</button>
     </form>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>

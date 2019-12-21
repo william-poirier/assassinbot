@@ -119,22 +119,26 @@ def add_player():
 # This is gonna be some wildin' code
 @app.route("/start_game")
 def start_game():
-    circle = load_circle()
-    loops = 0
-    while loops < 100:
-        indexA = random.choice(list(circle))
-        indexB = random.choice(list(circle))
-        if indexA != indexB:
-            circle = dict_swap(indexA, indexB, circle)
-        loops += 1
-    save_circle(circle)
-    for i in circle:
-        if i == circle[i]:
-            swapper = random.choice(list(circle))
-            while swapper != circle[i]:
-                circle = dict_swap(i, swapper, circle)
+    try:
+        circle = load_circle()
+        loops = 0
+        while loops < 100:
+            indexA = random.choice(list(circle))
+            indexB = random.choice(list(circle))
+            if indexA != indexB:
+                circle = dict_swap(indexA, indexB, circle)
+            loops += 1
+        save_circle(circle)
+        for i in circle:
+            if i == circle[i]:
                 swapper = random.choice(list(circle))
-    return render_template("homepage.html")
+                while swapper != circle[i]:
+                    circle = dict_swap(i, swapper, circle)
+                    swapper = random.choice(list(circle))
+        return render_template("homepage.html")
+    except IndexError:
+        print("ERROR: No players in the Circle")
+        return render_template("homepage.html")
 
 
 # Here is the method to swap people in the dictionary
@@ -145,7 +149,3 @@ def dict_swap(indexA, indexB, dictionary):
     circle[indexA] = temp_storeB
     circle[indexB] = temp_storeA
     return circle
-
-
-if __name__ == "__main__":
-    app.run()

@@ -4,14 +4,30 @@
     <meta charset="UTF-8">
     <title>Assassins</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: LightGrey
+        }
+        .jumbotron {
+            background-color: LightCoral
+        }
+    </style>
+
 </head>
 <body>
     <form action="/kill_">
+        <p>The name of the killer</p>
         <input type="text" name="Killer">
+        <br>
+        <p>The name of the player killed</p>
         <input type="text" name="Player Killed">
+        <br>
+        <p>The INTEGER number of witnesses (if over 50, call it 50)</p>
         <input type="number" name="Witnesses">
-        <button type="submit">Submit</button>
+        <br>
+        <button type="Submit" class="btn btn-danger">Submit</button>
     </form>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
